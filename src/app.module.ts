@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { LoggerModule } from 'nestjs-pino';
 import { PrismaModule } from './prisma';
+import { TasksModule } from './features/tasks';
 
 @Module({
   imports: [
@@ -15,6 +16,8 @@ import { PrismaModule } from './prisma';
             : undefined,
       },
     }),
+
+    TasksModule,
   ],
   controllers: [],
   providers: [],
