@@ -1,4 +1,4 @@
-name: .NET Build & Test
+name: Build & Test
 
 on:
   pull_request:
@@ -12,18 +12,22 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          dotnet-version: '9.x'
+          node-version: '24'
+          cache: 'npm'
 
-      - name: Restore dependencies
-        run: dotnet restore
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: npm run build
 
       - name: Run tests
-        run: dotnet test --no-build --configuration Release --verbosity normal
+        run: npm run test
